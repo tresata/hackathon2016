@@ -122,7 +122,7 @@ Keep in mind that a pyspark takes up these resources on the cluster even when yo
 
 
 ## Anaconda
-Anaconda is a completely free Python distribution (including for commercial use and redistribution). It includes more than 400 of the most popular Python packages for science, math, engineering, and data analysis. See the packages included with Anaconda.
+Anaconda is a completely free Python distribution from [Continuum Analytics](https://www.continuum.io). It includes more than 400 of the most popular Python packages for science, math, engineering, and data analysis. See [the packages included with Anaconda](http://docs.continuum.io/anaconda/pkg-docs).
 
 
 Getting failimar with conda: http://conda.pydata.org/docs/using/index.html
