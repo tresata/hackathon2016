@@ -5,7 +5,19 @@ Welcome to hackathon 2016!
 
 Download the kickoff deck for more information on the business problem, the hackathon agenda, the data, and more! Find it in the data folder:
 
-[Hackathon 2016 kickoff deck](https://github.com/tresata/hackathon2016/blob/master/data/hackathon_kickoff_deck2016.pdf)
+Table of Content: 
+
+* [Hackathon 2016 kickoff deck](https://github.com/tresata/hackathon2016/blob/master/data/hackathon_kickoff_deck2016.pdf)
+* [Getting Started](https://github.com/tresata/hackathon2016#getting-started)
+* [Machines](https://github.com/tresata/hackathon2016#machines)
+* [HDFS] (https://github.com/tresata/hackathon2016#hdfs)
+* [Data] (https://github.com/tresata/hackathon2016#data)
+* [Hive] (https://github.com/tresata/hackathon2016#hive)
+* [Spark] (https://github.com/tresata/hackathon2016#spark)
+* [pySpark] (https://github.com/tresata/hackathon2016#pyspark)
+* [Anaconda] (https://github.com/tresata/hackathon2016#anaconda)
+* [Scalding] (https://github.com/tresata/hackathon2016#scalding)
+* [Resource Manager] (https://github.com/tresata/hackathon2016#resource-manager)
 
 ## Getting Started
 
