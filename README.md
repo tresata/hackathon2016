@@ -13,6 +13,8 @@ You can obtain a username and login information from one of the Tresata represen
 
 Edit your hosts file and add a line to associate the ip to the hackathon hostname:
 
+    <ip-address> <host-name>
+
 [Here](https://support.rackspace.com/how-to/modify-your-hosts-file/) is the helpful link for editing your hosts file for Windows, Mac and Linux
 
 Ssh into a server where you can access the retail data stored on the hackathon Hadoop cluster.
@@ -21,15 +23,13 @@ Ssh into a server where you can access the retail data stored on the hackathon H
 
 and enter the password you were given.
 
-We made Hive, Spark, and pySpark command-line interfaces available, and included a tool to compile and run simple Scalding scripts on-the-fly.
+We made Hive, Spark, pySpark and Anaconda command-line interfaces available, and included a tool to compile and run simple Scalding scripts on-the-fly.
 
 ## Machines
 
 We have a Hadoop cluster with one master and four slaves. The slaves have sixteen cores, 15 1TB data drives, and 128GB of RAM. You will have ssh access to the slaves.
 
 Please spread yourselves out across the machines.
-
-
 
 ## HDFS
 To access your HDFS location, you need to use hadoop fs commands (some reference: http://www.folkstalk.com/2013/09/hadoop-fs-shell-command-example-tutorial.html). For example, to take a look at your home directory on HDFS, use
@@ -42,7 +42,7 @@ or
 
 ## Data
 
-You can find the data on HDFS in the /data folder, which contains the full data set with/without headers, as well as a 1% sample by customer (so all transactions for 1% of customers) with/without headers.
+You can find the data on HDFS in the /data folder, which contains the full data set with/without headers, as well as a 1% sample with/without headers.
 
     /data/
 
@@ -87,7 +87,7 @@ You can then extract the table from the hive warehouse for a table named abc:
 
 Now give the Spark-shell a test:
 
-    > spark-shell --num-executors 4 --executor-cores 1 --executor-memory 1G
+    > spark-shell --num-executors 2 --executor-cores 1 --executor-memory 1G
 
 Read in the data and run a simple query that calculates the number of purchases for each upc in the sample data:
 
@@ -98,15 +98,16 @@ Read in the data and run a simple query that calculates the number of purchases 
 
 Note that for your "production" run on the full dataset you might want to increase resources used on the cluster:
 
-    --num-executors 4 --executor-cores 4 --executor-memory 4G
+    --num-executors 2 --executor-cores 2 --executor-memory 2G
 
 Keep in mind that a spark-shell takes up these resources on the cluster even when you do not use them so please do not keep a spark-shell with "production" resources open unused.  
+
 
 ## pySpark
 
 You can also do the same query using a python version of the Spark shell.
 
-    > pyspark --num-executors 4 --executor-cores 1 --executor-memory 1G
+    > pyspark --num-executors 2 --executor-cores 1 --executor-memory 1G
 
     dataRDD = sc.textFile("/data/customer_sample")
     upcs = dataRDD.map(lambda line: line.split('|')[12])
@@ -115,11 +116,16 @@ You can also do the same query using a python version of the Spark shell.
 
 Note that for your "production" run on the full dataset you might want to increase resources used on the cluster:
 
-    --num-executors 4 --executor-cores 4 --executor-memory 4G
+    --num-executors 2 --executor-cores 2 --executor-memory 2G
 
 Keep in mind that a pyspark takes up these resources on the cluster even when you do not use them so please do not keep a pyspark shell (interpreter) with "production" resources open unused.  
 
 
+## Anaconda
+Anaconda is a completely free Python distribution (including for commercial use and redistribution). It includes more than 400 of the most popular Python packages for science, math, engineering, and data analysis. See the packages included with Anaconda.
+
+
+Getting failimar with conda: http://conda.pydata.org/docs/using/index.html
 
 
 ## Scalding
@@ -145,4 +151,5 @@ you can run a query on the data set sample from the command-line:
 This will generate a bar-separated file called 'upc_counts' in your HDFS home directory, containing the upc numbers along with their total counts.  
 
 ## Resource Manager
-http://hack01:8088
+
+http://hack01:8088/
