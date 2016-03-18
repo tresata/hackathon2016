@@ -56,6 +56,8 @@ or
 
 ## Data
 
+**Data Disctonary** : It's present on /home/shared/data-dictionary and Slack Channel for DATA
+
 You can find the data on HDFS in the /data folder, which contains the full data set with/without headers, as well as a 1% sample with/without headers.
 
     /data/full-dataset
