@@ -231,4 +231,6 @@ Example Queries can be found [here](https://github.com/tresata/hackathon2016/blo
 
 ## Resource Manager
 
-http://hack01:8088/
+http://hack01:8088/ 
+or 
+http://192.104.0.145:8088/cluster
