@@ -55,21 +55,34 @@ or
 
 You can find the data on HDFS in the /data folder, which contains the full data set with/without headers, as well as a 1% sample with/without headers.
 
-    /data/
+    /data/full-dataset
+    /data/full-dataset-without-header
+    /data/sample-dataset
+    /data/sample-dataset-without-header
+    
 
 
 The sample files are also available on the local file system:
 
-    /home/
+    /home/shared/
 
 
 ## Hive
 
 In hive the following tables are available:
 
-    sample
-    full-dataset
-    orc format
+    distribution
+    distribution_orc
+    distribution_sample
+    donations
+    donations_orc
+    donations_sample
+    ht_transactions
+    ht_transactions_sample_orc
+    ht_transactions_sample
+    monetary_donations
+    monetary_donations_orc
+    monetary_donations_sample
 
 Give Hive a whirl and run a sample query:
 
@@ -79,20 +92,31 @@ Try pasting the following query into the hive command-line interface:
 
     hive> show tables;
     OK
-    hackathon
-    Time taken: 0.034 seconds, Fetched: 1 row(s)
+    distribution
+    distribution_orc
+    distribution_sample
+    donations
+    donations_orc
+    donations_sample
+    ht_transactions
+    ht_transactions_sample_orc
+    ht_transactions_sample
+    monetary_donations
+    monetary_donations_orc
+    monetary_donations_sample
+    Time taken: 1.168 seconds, Fetched: 12 row(s)
 
     hive> select * from hackathon limit 10;
 
-This will return all the fields for the first ten items in the 'hackathon' table.
+This will return all the fields for the first ten items in the 'ht_transactions' table.
 
 If you'd like to create a file from the command, you can use a create table command:
 
-    hive> create table test row format delimited fields terminated by '|' stored as textfile as select * from default.hackathon limit 10;
+    hive> create table test row format delimited fields terminated by '|' stored as textfile as select * from default.ht_transactions limit 10;
 
-You can then extract the table from the hive warehouse for a table named abc:
+You can then extract the table from the hive warehouse for a table named test:
 
-    hadoop fs -text /user/hive/warehouse/abc/*.snappy > textfile
+    hadoop fs -text /user/hive/warehouse/test/*.snappy > textfile
 
 ## Spark
 
@@ -141,7 +165,7 @@ Getting failimar with conda: http://conda.pydata.org/docs/using/index.html
 
 ## Scalding
 
-In addition to the Hive and Spark shells, we're also packaging Eval-tool, a tool to compile and run Scalding scripts without having to create a project. If you create a file called test.scala with the following contents:
+In addition to the Hive and Spark shells, we're also packaging Eval-tool and df-eval-tool, a tool to compile and run Scalding scripts without having to create a project. If you create a file called test.scala with the following contents:
 
     import com.twitter.scalding._
     import com.tresata.scalding.Dsl._
@@ -159,7 +183,31 @@ you can run a query on the data set sample from the command-line:
 
     > eval-tool test.scala --hdfs --input bsv%/data/
 
-This will generate a bar-separated file called 'upc_counts' in your HDFS home directory, containing the upc numbers along with their total counts.  
+This will generate a bar-separated file called 'upc_counts' in your HDFS home directory, containing the upc numbers along with their total counts.
+
+df-eval-tool
+
+    spark_eval_example.scala
+    import com.twitter.scalding.Args
+    import com.tresata.spark.sql.Job
+    import com.tresata.spark.sql.source.Source
+
+    (args : Args) =>
+      new Job(args) {
+        override def run = {
+          val fapi = Source.fromArg(args, "input").read(minPartitions = 1000).fieldsApi
+    
+          fapi
+            .groupBy('Donor_ID) { _
+              .size('Donation_Count)
+            }
+            .write(Source.fromArg(args, "output"))
+        }
+      }
+
+run df-eval-tool
+
+    > df-eval-tool test.scala --input bsv%donations.bsv --output bsv%donation_counts.bsv
 
 ## Resource Manager
 
