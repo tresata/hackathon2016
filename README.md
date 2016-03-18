@@ -23,11 +23,13 @@ Table of Content:
 
 You can obtain a username and login information from one of the Tresata representatives.
 
-Edit your hosts file and add a line to associate the ip to the hackathon hostname:
+Edit your hosts file and add lines to associate the ip to the hackathon servers hostname:
 
     <ip-address> <host-name>
 
 [Here](https://support.rackspace.com/how-to/modify-your-hosts-file/) is the helpful link for editing your hosts file for Windows, Mac and Linux
+
+NOTE: You can get the IP addresses from Slack (Infrastruture Room)
 
 ssh into a server where you can access the food bank and retail data stored on the hackathon Hadoop cluster.
 
