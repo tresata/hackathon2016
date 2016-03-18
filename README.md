@@ -29,13 +29,13 @@ Edit your hosts file and add a line to associate the ip to the hackathon hostnam
 
 [Here](https://support.rackspace.com/how-to/modify-your-hosts-file/) is the helpful link for editing your hosts file for Windows, Mac and Linux
 
-Ssh into a server where you can access the retail data stored on the hackathon Hadoop cluster.
+ssh into a server where you can access the food bank and retail data stored on the hackathon Hadoop cluster.
 
     > ssh <username>@<ip-address>
 
 and enter the password you were given.
 
-We made Hive, Spark, pySpark and Anaconda command-line interfaces available, and included a tool to compile and run simple Scalding scripts on-the-fly.
+We made Hive, Spark, pySpark and Anaconda command-line interfaces available, and included a tool to compile and run simple Scalding or Spark scripts on-the-fly.
 
 ## Machines
 
@@ -57,11 +57,10 @@ or
 You can find the data on HDFS in the /data folder, which contains the full data set with/without headers, as well as a 1% sample with/without headers.
 
     /data/full-dataset
+    /data/full-dataset-parquet
     /data/full-dataset-without-header
     /data/sample-dataset
     /data/sample-dataset-without-header
-    
-
 
 The sample files are also available on the local file system:
 
@@ -111,7 +110,7 @@ Try pasting the following query into the hive command-line interface:
 
 This will return all the fields for the first ten items in the 'ht_transactions' table.
 
-If you'd like to create a file from the command, you can use a create table command:
+If you'd like to create a file from the command line, you can use a create table command:
 
     hive> create table test row format delimited fields terminated by '|' stored as textfile as select * from default.ht_transactions limit 10;
 
@@ -171,7 +170,7 @@ Getting failimar with conda: http://conda.pydata.org/docs/using/index.html
 
 ## Scalding
 
-In addition to the Hive and Spark shells, we're also packaging Eval-tool and df-eval-tool, a tool to compile and run Scalding scripts without having to create a project. If you create a file called test.scala with the following contents:
+In addition to the Hive and Spark shells, we're also packaging eval-tool and df-eval-tool. These are tools to compile and run Scalding and Spark scripts without having to create a project. If you create a file called test.scala with the following contents:
 
     import com.twitter.scalding._
     import com.tresata.scalding.Dsl._
@@ -180,16 +179,19 @@ In addition to the Hive and Spark shells, we're also packaging Eval-tool and df-
     (args: Args) => {
       new Job(args) {
         ScaldingUtil.sourceFromArg(args("input"))
-          
+          .groupBy('Donor_ID) { _
+            .size('Donation_Count)
+          } 
           .write(ScaldingUtil.sourceFromArg(args("output")))
       }
-    }
+   } 
+
 
 you can run a query on the data set sample from the command-line:
 
-    > eval-tool test.scala --hdfs --input bsv%/data/
+    > eval-tool test.scala --hdfs --input bsv%/data/sample-dataset/donations_sample.bsv --output bsv%donation_counts.bsv
 
-This will generate a bar-separated file called 'upc_counts' in your HDFS home directory, containing the upc numbers along with their total counts.
+This will generate a bar-separated file called 'donation_counts' in your HDFS home directory, containing the Donor numbers along with their total counts.
 
 df-eval-tool
 
@@ -230,4 +232,3 @@ Example Queries can be found [here](https://github.com/tresata/hackathon2016/blo
 ## Resource Manager
 
 http://hack01:8088/
-
