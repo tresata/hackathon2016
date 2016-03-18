@@ -106,7 +106,7 @@ Try pasting the following query into the hive command-line interface:
     monetary_donations_sample
     Time taken: 1.168 seconds, Fetched: 12 row(s)
 
-    hive> select * from hackathon limit 10;
+    hive> select * from ht_transactions limit 10;
 
 This will return all the fields for the first ten items in the 'ht_transactions' table.
 
