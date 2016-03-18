@@ -212,6 +212,14 @@ run df-eval-tool
 
 ## Tresata ORION
 
+ORION provides the one intelligence discovery application every data scientist is currently dreaming about. And when fed with data that holds connections between unique entities, it comes into its own as a business.
+
+Explore unseen connections, uncovering intelligence that might be the missing link to the bigger story behind your data. ORION is a relationship discovery, traversal and querying engine that has the ability to mine, represent and algorithmically process any network dynamic in real time.
+
+Orion can we accessed via http://hack01:8082.
+
+For login, please contact the Orion room on Slack
+
 Example Queries can be found [here](https://github.com/tresata/hackathon2016/blob/master/data/orion_queries.pdf)
 
 ## Resource Manager
