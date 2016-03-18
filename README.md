@@ -16,6 +16,7 @@ Table of Content:
 * [pySpark] (https://github.com/tresata/hackathon2016#pyspark)
 * [Anaconda] (https://github.com/tresata/hackathon2016#anaconda)
 * [Scalding] (https://github.com/tresata/hackathon2016#scalding)
+* [Tresata ORION] (https://github.com/tresata/hackathon2016#tresata-orion)
 * [Resource Manager] (https://github.com/tresata/hackathon2016#resource-manager)
 
 ## Getting Started
