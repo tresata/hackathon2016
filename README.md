@@ -38,7 +38,7 @@ We made Hive, Spark, pySpark and Anaconda command-line interfaces available, and
 
 ## Machines
 
-We have a Hadoop cluster with one master and four slaves. The slaves have sixteen cores, 15 1TB data drives, and 128GB of RAM. You will have ssh access to the slaves.
+We have a Hadoop cluster with one master and four slaves. The slaves have 32 cores, 14 1TB data drives, and 128GB of RAM. You will have ssh access to the slaves.
 
 Please spread yourselves out across the machines.
 
