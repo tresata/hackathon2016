@@ -121,16 +121,18 @@ You can then extract the table from the hive warehouse for a table named test:
 
 ## Spark
 
+**Spark-shell** can be found at /usr/local/lib/spark/bin
+
 Now give the Spark-shell a test:
 
-    > spark-shell --num-executors 2 --executor-cores 1 --executor-memory 1G
+    > /usr/local/lib/spark/bin/spark-shell --num-executors 4 --executor-cores 1 --executor-memory 1G
 
-Read in the data and run a simple query that calculates the number of purchases for each upc in the sample data:
 
-    val dataRDD = sc.textFile("/data/customer_sample")
-    val upcs = dataRDD.map(_.split("\\|")(12))
-    val upcCounts = upcs.map(upc => (upc, 1)).reduceByKey((a, b) => a + b)
-    upcCounts.take(10)
+Read in the data and run a simple query that calcuates the unique count of Donor_ID:
+
+    val df = sqlContext.read.parquet("/data/full-dataset-parquet/donations.parquet")
+    df.groupBy("Donor_ID").count().collect()
+
 
 Note that for your "production" run on the full dataset you might want to increase resources used on the cluster:
 
@@ -141,14 +143,17 @@ Keep in mind that a spark-shell takes up these resources on the cluster even whe
 
 ## pySpark
 
+**pySpark** can be found at /usr/local/lib/spark/bin
+
+
 You can also do the same query using a python version of the Spark shell.
 
-    > pyspark --num-executors 2 --executor-cores 1 --executor-memory 1G
+    >  /usr/local/lib/spark/bin/pyspark --num-executors 4 --executor-cores 1 --executor-memory 1G
 
-    dataRDD = sc.textFile("/data/customer_sample")
-    upcs = dataRDD.map(lambda line: line.split('|')[12])
-    upcCounts = upcs.map(lambda word: (word, 1)).reduceByKey(lambda a, b: a + b)
-    upcCounts.take(10)
+Read in the data and run a simple query that calcuates the unique count of Donor_ID:
+
+    df = sqlContext.read.parquet("/data/full-dataset-parquet/donations.parquet")
+    df.groupBy("Donor_ID").count().collect()
 
 Note that for your "production" run on the full dataset you might want to increase resources used on the cluster:
 
