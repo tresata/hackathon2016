@@ -21,7 +21,7 @@ Table of Content:
 
 ## Getting Started
 
-You can obtain a username and login information from one of the Tresata representatives.
+You can obtain a username and login information from one of the Tresata representatives or from sponsor's room.
 
 Edit your hosts file and add lines to associate the ip to the hackathon servers hostname:
 
